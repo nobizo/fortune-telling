@@ -14,7 +14,10 @@ if zodiac:
     # OpenAIから今日の運勢を取得します。
     response = openai.ChatCompletion.create(
         model='gpt-4',
-        messages='今日の運勢を教えてください。'
+        messages=[
+            {"role": "system", "content": "You are a fortune teller."},
+            {"role": "user", "content": f"今日の{zodiac}の運勢を教えてください。"}
+        ]
     )
 
     # OpenAIから返却されたテキストに含まれる今日の運勢のラッキーカラーをラッキーカラーフィールドに表示します。
