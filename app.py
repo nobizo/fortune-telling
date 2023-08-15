@@ -1,46 +1,24 @@
-
 import streamlit as st
 import openai
 
-# Streamlit Community Cloudの「Secrets」からOpenAI API keyを取得
-openai.api_key = st.secrets.OpenAIAPI.openai_api_key
+# サイドバーに12の星座のボタンを配置します。
+st.sidebar.markdown('**星座を選択してください**')
+for zodiac in ['牡羊座', '牡牛座', '双子座', '蟹座', '獅子座', '乙女座', '天秤座', '蠍座', '射手座', '山羊座', '水瓶座', '魚座']:
+    st.sidebar.button(zodiac)
 
-# st.session_stateを使いメッセージのやりとりを保存
-if "messages" not in st.session_state:
-    st.session_state["messages"] = [
-        {"role": "system", "content": "あなたは優秀なアシスタントAIです。"}
-        ]
+# サイドバーの星座のボタンのどれか1つをクリックするとOpenAIのAPIにクリックした星座を渡し、OpenAIから今日の運勢を返してもらいます。
+zodiac = st.sidebar.selectbox('星座を選択してください', ['牡羊座', '牡牛座', '双子座', '蟹座', '獅子座', '乙女座', '天秤座', '蠍座', '射手座', '山羊座', '水瓶座', '魚座'])
+if zodiac:
+    # OpenAIから今日の運勢を取得します。
+    response = openai.create_response(
+        engine='davinci',
+        prompt='今日の運勢を教えてください。',
+        temperature=0.7,
+        top_p=0.9,
+        presence_penalty=0.2,
+        stop_token='。'
+    )
 
-# チャットボットとやりとりする関数
-def communicate():
-    messages = st.session_state["messages"]
-
-    user_message = {"role": "user", "content": st.session_state["user_input"]}
-    messages.append(user_message)
-
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=messages
-    )  
-
-    bot_message = response["choices"][0]["message"]
-    messages.append(bot_message)
-
-    st.session_state["user_input"] = ""  # 入力欄を消去
-
-
-# ユーザーインターフェイスの構築
-st.title("My AI Assistant")
-st.write("ChatGPT APIを使ったチャットボットです。")
-
-user_input = st.text_input("メッセージを入力してください。", key="user_input", on_change=communicate)
-
-if st.session_state["messages"]:
-    messages = st.session_state["messages"]
-
-    for message in reversed(messages[1:]):  # 直近のメッセージを上に
-        speaker = "🙂"
-        if message["role"]=="assistant":
-            speaker="🤖"
-
-        st.write(speaker + ": " + message["content"])
+    # OpenAIから返却されたテキストに含まれる今日の運勢のラッキーカラーをラッキーカラーフィールドに表示します。
+    lucky_color = response.choices[0].text.split('。')[0].split('今日の運勢は')[1].split('です。')[0]
+    st.write('ラッキーカラーは、' + lucky_color + 'です。')
