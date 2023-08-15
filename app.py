@@ -13,13 +13,9 @@ for zodiac in ['牡羊座', '牡牛座', '双子座', '蟹座', '獅子座', '�
 zodiac = st.sidebar.selectbox('星座を選択してください', ['牡羊座', '牡牛座', '双子座', '蟹座', '獅子座', '乙女座', '天秤座', '蠍座', '射手座', '山羊座', '水瓶座', '魚座'])
 if zodiac:
     # OpenAIから今日の運勢を取得します。
-    response = openai.create_response(
-        engine='davinci',
-        prompt='今日の運勢を教えてください。',
-        temperature=0.7,
-        top_p=0.9,
-        presence_penalty=0.2,
-        stop_token='。'
+    response = openai.ChatCompletion.create(
+        model='gpt-4',
+        messages='今日の運勢を教えてください。'
     )
 
     # OpenAIから返却されたテキストに含まれる今日の運勢のラッキーカラーをラッキーカラーフィールドに表示します。
