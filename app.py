@@ -45,7 +45,7 @@ st.sidebar.markdown('**生年月日を入力してください**')
 min_date = datetime(1962, 1, 1)
 max_date = datetime(2030, 12, 31)
 birth_date = st.sidebar.date_input('生年月日', min_value=min_date, max_value=max_date)
-
+birth_year = birth_date.year
 
 # 生年月日から星座を計算する関数
 def calculate_zodiac(birth_date):
@@ -87,7 +87,7 @@ st.image("astrologer.png")
 if selected_zodiac == "":
     st.write("星座を選んでください")
 else:
-    st.write(f"{selected_zodiac}の運勢です")
+    st.write(f"{birth_year}年生まれの{selected_zodiac}の運勢です")
     
     user_message = f"今日の{selected_zodiac}の運勢を教えてください。"
     response = openai.ChatCompletion.create(
