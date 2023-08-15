@@ -11,7 +11,7 @@ selected_zodiac = st.sidebar.selectbox('星座を選択してください', ['�
 if selected_zodiac:
     st.write(f"{selected_zodiac}の運勢です")
     response = openai.Completion.create(
-        engine="gpt-4",
+        model="gpt-4",
         messages=[
             {"role": "system", "content": "You are a fortune teller."},
             {"role": "user", "content": f"今日の{selected_zodiac}の運勢を教えてください。"}
