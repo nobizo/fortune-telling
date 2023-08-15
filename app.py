@@ -42,8 +42,8 @@ system_prompt = """
 st.sidebar.markdown('**生年月日を入力してください**')
 
 # 選択可能な日付範囲を指定して date_input を使用します。
-min_date = datetime(1962, 10, 1)
-max_date = datetime(2005, 12, 31)
+min_date = datetime(1962, 1, 1)
+max_date = datetime(2030, 12, 31)
 birth_date = st.sidebar.date_input('生年月日', min_value=min_date, max_value=max_date)
 
 
