@@ -10,7 +10,7 @@ selected_zodiac = st.sidebar.selectbox('星座を選択してください', ['�
 # サイドバーの星座のボタンのどれか1つをクリックするとOpenAIのAPIにクリックした星座を渡し、OpenAIから今日の運勢を返してもらいます。
 if selected_zodiac:
     st.write(f"{selected_zodiac}の運勢です")
-    response = openai.Completion.create(
+    response = openai.ChatCompletion.create(
         model="gpt-4",
         messages=[
             {"role": "system", "content": "You are a fortune teller."},
