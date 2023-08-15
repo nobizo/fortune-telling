@@ -21,5 +21,4 @@ if zodiac:
     )
 
     # OpenAIから返却されたテキストに含まれる今日の運勢のラッキーカラーをラッキーカラーフィールドに表示します。
-    lucky_color = response.choices[0].text.split('。')[0].split('今日の運勢は')[1].split('です。')[0]
-    st.write('ラッキーカラーは、' + lucky_color + 'です。')
+st.write(response)
