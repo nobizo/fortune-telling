@@ -79,7 +79,10 @@ def calculate_zodiac(birth_date):
 
 
 # 生年月日から星座を計算
-selected_zodiac = calculate_zodiac(birth_date)
+selected_zodiac = ""
+if birth_date:
+    birth_year = birth_date.year
+    selected_zodiac = calculate_zodiac(birth_date)
 
 
 # サイドバーの星座のボタンのどれか1つをクリックするとOpenAIのAPIにクリックした星座を渡し、OpenAIから今日の運勢を返してもらいます。
