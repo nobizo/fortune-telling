@@ -18,5 +18,5 @@ if selected_zodiac:
         ]
     )
 
-    bot_message = response.choices[0].text.strip()
-    st.write(bot_message)
+bot_message = response["choices"][0]["message"]
+st.write(bot_message)
