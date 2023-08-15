@@ -14,7 +14,7 @@ if selected_zodiac:
         engine="gpt-4",
         messages=[
             {"role": "system", "content": "You are a fortune teller."},
-            {"role": "user", "content": f"今日の{zodiac}の運勢を教えてください。"}
+            {"role": "user", "content": f"今日の{selected_zodiac}の運勢を教えてください。"}
         ]
     )
 
